@@ -97,19 +97,7 @@ bool canMove(int dx, int dy){
 }
 
 void removeLine(){
-    int j;
-    for (int i = H-2; i > 0; i--){
-        for (j = 1; j < W-1; j++)
-            if (board[i][j] == ' ') break;
-        if (j == W-1){
-            for (int ii = i; ii > 0; ii--)
-                for (j = 1; j < W-1; j++)
-                    board[ii][j] = board[ii-1][j];
-            i++;
-            draw();
-            Sleep(200);
-        }
-    }
+
 }
 
 void rotate(){
