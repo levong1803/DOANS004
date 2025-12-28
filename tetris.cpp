@@ -161,10 +161,37 @@ void removeLine(){
         }
     }
 }
-void rotate(){
-  
+bool canRotatePiece() {
+    if (currentPiece == nullptr) return false;
+    Piece* tempPiece = createPiece(b);
+    for (int i = 0; i < 4; i++)
+        for (int j = 0; j < 4; j++)
+            tempPiece->setShape(i, j, currentPiece->getShape(i, j));
+    tempPiece->rotate();
+    for (int i = 0; i < 4; i++)
+        for (int j = 0; j < 4; j++)
+            if (tempPiece->getShape(i, j) != ' ') {
+                int tx = x + j;
+                int ty = y + i;
+                if (tx < 1 || tx >= W-1 || ty >= H-1) {
+                    delete tempPiece;
+                    return false;
+                }
+                int c = board[ty][tx]; 
+                if (c != ' ' && c != '+' && c != '-' && c != '|') {
+                    delete tempPiece;
+                    return false;
+                }
+            }
+    delete tempPiece;
+    return true;
 }
-
+void rotatePiece(){
+    if (currentPiece == nullptr) return;
+    if (canRotatePiece()) {
+        currentPiece->rotate();
+    }
+}
 int main()
 {
     srand(time(0));
