@@ -137,7 +137,7 @@ void boardDelPiece(){
     if (currentPiece == nullptr) return;
     for (int i = 0 ; i < 4 ; i++)
         for (int j = 0 ; j < 4 ; j++)
-            if (currentPiece->getShape(i, j) != ' ' && y+j < H)
+            if (currentPiece->getShape(i, j) != ' ' && y+i < H)
                 board[y+i][x+j] = (int)' ';
 }
 void piece2Board(){
