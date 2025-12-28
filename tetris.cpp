@@ -281,7 +281,7 @@ int main()
     b = rand() % 7;
     system("cls");
     initBoard();
-    createNewPiece();   
+    createNewPiece();
 
     cout << "Dieu khien: W - Xoay, A - Trai, D - Phai, S - Xuong nhanh" << endl;
     cout << "Su dung Class Piece voi Polymorphism (Tuan 3)" << endl;
@@ -299,10 +299,18 @@ int main()
                 boardDelPiece();
                 switch (key)
                 {
-                    case 72: rotatePiece(); break;
-                    case 75: if (canMovePiece(-1, 0)) x--; break;
-                    case 77: if (canMovePiece(1, 0))  x++; break;
-                    case 80: if (canMovePiece(0, 1))  y++; break;
+                    case 72:
+                        rotatePiece();
+                        break;
+                    case 75:
+                        if (canMovePiece(-1, 0)) x--;
+                        break;
+                    case 77:
+                        if (canMovePiece(1, 0)) x++;
+                        break;
+                    case 80:
+                        while (canMovePiece(0, 1)) y++;
+                        break;
                 }
             }
             else
@@ -311,15 +319,24 @@ int main()
                 boardDelPiece();
                 switch (key)
                 {
-                    case 'W': rotatePiece(); break;
-                    case 'A': if (canMovePiece(-1, 0)) x--; break;
-                    case 'D': if (canMovePiece(1, 0))  x++; break;
-                    case 'S': if (canMovePiece(0, 1))  y++; break;
+                    case 'W':
+                        rotatePiece();
+                        break;
+                    case 'A':
+                        if (canMovePiece(-1, 0)) x--;
+                        break;
+                    case 'D':
+                        if (canMovePiece(1, 0)) x++;
+                        break;
+                    case 'S':
+                        while (canMovePiece(0, 1)) y++;
+                        break;
                 }
             }
         }
 
         boardDelPiece();
+
         if (canMovePiece(0, 1))
         {
             y++;
@@ -338,11 +355,11 @@ int main()
             {
                 system("cls");
                 gotoxy(0, 0);
-                cout << "\033[31;1m========================================\n";
-                cout << "           GAME OVER!\n";
-                cout << "========================================\n" << resetColor();
-                cout << "\033[33mDiem so: " << linesRemoved << " dong da xoa\n" << resetColor();
-                cout << "\033[36mNhan phim bat ky de thoat..." << resetColor();
+                cout << "\033[31;1m========================================" << endl;
+                cout << "           GAME OVER!" << endl;
+                cout << "========================================" << resetColor() << endl;
+                cout << "\033[33mDiem so: " << linesRemoved << " dong da xoa" << resetColor() << endl;
+                cout << "\033[36mNhan phim bat ky de thoat..." << resetColor() << endl;
                 _getch();
                 break;
             }
@@ -352,9 +369,12 @@ int main()
         draw();
         Sleep(fallSpeed);
     }
-    if (currentPiece != nullptr) {
+
+    if (currentPiece != nullptr)
+    {
         delete currentPiece;
         currentPiece = nullptr;
-    }  
+    }
+
     return 0;
 }
