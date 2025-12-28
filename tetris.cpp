@@ -120,7 +120,7 @@ Piece* createPiece(int type) {
     }
 }
 int x=4,y=0,b=1;
-
+Piece* currentPiece = nullptr;
 int fallSpeed = 200; 
 int linesRemoved = 0;
 void gotoxy(int x, int y) {
