@@ -192,18 +192,20 @@ void draw(){
     }
 }
 
-bool canMove(int dx, int dy){
+bool canMovePiece(int dx, int dy){
+    if (currentPiece == nullptr) return false;
     for (int i = 0 ; i < 4 ; i++)
         for (int j = 0 ; j < 4 ; j++)
-            if (blocks[b][i][j] != ' '){
+            if (currentPiece->getShape(i, j) != ' '){
                 int tx = x + j + dx;
                 int ty = y + i + dy;
                 if ( tx<1 || tx >= W-1 || ty >= H-1) return false;
-                if ( board[ty][tx] != ' ') return false;
+                // Kiểm tra: bỏ qua viền ASCII (+, -, |)
+                int c = board[ty][tx]; // Đổi thành int
+                if (c != ' ' && c != '+' && c != '-' && c != '|') return false;
             }
     return true;
 }
-
 void removeLine(){
     int linesRemovedThisTurn = 0;
     for (int i = H-2; i > 0; i-- ){
