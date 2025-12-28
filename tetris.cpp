@@ -352,6 +352,9 @@ int main()
         draw();
         Sleep(fallSpeed);
     }
-
+    if (currentPiece != nullptr) {
+        delete currentPiece;
+        currentPiece = nullptr;
+    }  
     return 0;
 }
