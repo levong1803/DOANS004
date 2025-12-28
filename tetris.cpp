@@ -51,6 +51,8 @@ char blocks[][4][4] = {
 
 int x=4,y=0,b=1;
 
+int fallSpeed = 200; 
+int linesRemoved = 0;
 void gotoxy(int x, int y) {
     COORD c = {(SHORT)x, (SHORT)y};
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), c);
@@ -127,20 +129,38 @@ bool canMove(int dx, int dy){
 }
 
 void removeLine(){
-    int j;
-    for (int i = H-2; i >0 ; i-- ){
-        for (j = 0; j < W-1 ; j++)
-            if (board[i][j] == ' ') break;
-        if (j == W-1){
-            for (int ii = i; ii >0 ; ii-- )
-                for (int j = 0; j < W-1 ; j++ ) board[ii][j] = board[ii-1][j];
+    int linesRemovedThisTurn = 0;
+    for (int i = H-2; i > 0; i-- ){
+        bool isFull = true;
+        for (int j = 1; j < W-1; j++) {
+            if (board[i][j] == (int)' ') {
+                isFull = false;
+                break;
+            }
+        }
+        if (isFull) {
+            int topBorder[W];
+            for (int jj = 0; jj < W; jj++) {
+                topBorder[jj] = board[0][jj];
+            }
+            for (int ii = i; ii > 1; ii--) {
+                for (int jj = 1; jj < W-1; jj++) {
+                    board[ii][jj] = board[ii-1][jj];
+                }
+            }
+            for (int jj = 1; jj < W-1; jj++) {
+                board[1][jj] = (int)' ';
+            }
+            for (int jj = 0; jj < W; jj++) {
+                board[0][jj] = topBorder[jj];
+            }
             i++;
+            linesRemovedThisTurn++;
             draw();
-            _sleep(200);
+            Sleep(200);
         }
     }
 }
-
 void rotate(){
   
 }
