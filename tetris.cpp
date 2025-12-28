@@ -278,26 +278,59 @@ void rotatePiece(){
 int main()
 {
     srand(time(0));
+
     b = rand() % 7;
     system("cls");
     initBoard();
-    
-    while (1){
-        boardDelBlock();
-        
-        if (canMove(0,1)) y++;
-        else {
-            block2Board();
-            
-            removeLine();
-            x = 5; y = 0; b = rand() % 7;
+
+    cout << "Dieu khien: W - Xoay, A - Trai, D - Phai, S - Xuong nhanh" << endl;
+    cout << "Su dung Class Piece voi Polymorphism (Tuan 3)" << endl;
+
+    Sleep(2000);
+    system("cls");
+    while (true)
+    {
+        if (canMovePiece(0, 1))
+        {
+            y++; 
         }
-        
-        block2Board();
+        else
+        {
+            piece2Board();
+            removeLine();
+            x = 5;
+            y = 0;
+            b = rand() % 7;
+            createNewPiece();
+
+            if (!canMovePiece(0, 0))
+            {
+                system("cls");
+                gotoxy(0, 0);
+
+                cout << "\033[31;1m";
+                cout << "========================================\n";
+                cout << "           GAME OVER!\n";
+                cout << "========================================\n";
+                cout << resetColor();
+
+                cout << "\033[33m";
+                cout << "Diem so: " << linesRemoved << " dong da xoa\n";
+                cout << resetColor();
+
+                cout << "\033[36m";
+                cout << "Nhan phim bat ky de thoat...";
+                cout << resetColor();
+
+                _getch();
+                break;
+            }
+        }
+
+        piece2Board();
         draw();
-        Sleep(200);
+        Sleep(fallSpeed);
     }
-    
+
     return 0;
 }
-
