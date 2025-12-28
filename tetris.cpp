@@ -123,23 +123,29 @@ int x=4,y=0,b=1;
 Piece* currentPiece = nullptr;
 int fallSpeed = 200; 
 int linesRemoved = 0;
+void createNewPiece() {
+    if (currentPiece != nullptr) {
+        delete currentPiece;
+    }
+    currentPiece = createPiece(b);
+}
 void gotoxy(int x, int y) {
     COORD c = {(SHORT)x, (SHORT)y};
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), c);
 }
-
-void boardDelBlock(){
+void boardDelPiece(){
+    if (currentPiece == nullptr) return;
     for (int i = 0 ; i < 4 ; i++)
         for (int j = 0 ; j < 4 ; j++)
-            if (blocks[b][i][j] != ' ' && y+j < H)
-                board[y+i][x+j] = ' ';
+            if (currentPiece->getShape(i, j) != ' ' && y+j < H)
+                board[y+i][x+j] = (int)' ';
 }
-
-void block2Board(){
+void piece2Board(){
+    if (currentPiece == nullptr) return;
     for (int i = 0 ; i < 4 ; i++)
         for (int j = 0 ; j < 4 ; j++)
-            if (blocks[b][i][j] != ' ' )
-                board[y+i][x+j] = blocks[b][i][j];
+            if (currentPiece->getShape(i, j) != ' ' )
+                board[y+i][x+j] = (int)currentPiece->getShape(i, j); 
 }
 string getBlockColor(char blockType) {
     switch(blockType) {
