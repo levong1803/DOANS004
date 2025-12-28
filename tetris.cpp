@@ -69,7 +69,21 @@ void block2Board(){
             if (blocks[b][i][j] != ' ' )
                 board[y+i][x+j] = blocks[b][i][j];
 }
-
+string getBlockColor(char blockType) {
+    switch(blockType) {
+        case 'I': return "\033[36m"; 
+        case 'O': return "\033[33m"; 
+        case 'T': return "\033[35m"; 
+        case 'S': return "\033[32m"; 
+        case 'Z': return "\033[31m"; 
+        case 'J': return "\033[34m"; 
+        case 'L': return "\033[38;5;208m"; 
+        default: return "\033[0m";
+    }
+}
+string resetColor() {
+    return "\033[0m";
+}
 void initBoard(){
     for (int i = 0 ; i < H ; i++)
         for (int j = 0 ; j < W ; j++)
