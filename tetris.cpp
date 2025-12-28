@@ -87,15 +87,31 @@ string resetColor() {
 void initBoard(){
     for (int i = 0 ; i < H ; i++)
         for (int j = 0 ; j < W ; j++)
-            if ((i==H-1) || (j==0) || (j == W-1)) board[i][j] = '#';
-            else board[i][j] = ' ';
+            if (i == 0 && j == 0) board[i][j] = (int)'+'; 
+            else if (i == 0 && j == W-1) board[i][j] = (int)'+';
+            else if (i == H-1 && j == 0) board[i][j] = (int)'+'; 
+            else if (i == H-1 && j == W-1) board[i][j] = (int)'+'; 
+            else if (i == 0 || i == H-1) board[i][j] = (int)'-'; 
+            else if (j == 0 || j == W-1) board[i][j] = (int)'|'; 
+            else board[i][j] = (int)' '; 
 }
-
 void draw(){
     gotoxy(0,0);
-    for (int i = 0 ; i < H ; i++, cout<<endl)
-        for (int j = 0 ; j < W ; j++)
-            cout<<board[i][j];
+    for (int i = 0 ; i < H ; i++) {
+        for (int j = 0 ; j < W ; j++) {
+            int c = board[i][j]; 
+            if (c == '+' || c == '-' || c == '|') {
+                cout << "\033[37;1m" << (char)c << resetColor();
+            }
+            else if (c != ' ') {
+                cout << getBlockColor((char)c) << "#" << resetColor();
+            }
+            else {
+                cout << " "; 
+            }
+        }
+        cout << endl;
+    }
 }
 
 bool canMove(int dx, int dy){
